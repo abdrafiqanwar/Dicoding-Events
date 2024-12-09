@@ -2,6 +2,8 @@ package com.example.dicodingevents.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -15,6 +17,7 @@ import com.example.dicodingevents.core.ui.EventAdapter
 import com.example.dicodingevents.core.ui.ViewModelFactory
 import com.example.dicodingevents.databinding.ActivityMainBinding
 import com.example.dicodingevents.detail.DetailActivity
+import com.example.dicodingevents.favorite.FavoriteActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,5 +63,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favorite -> {
+                startActivity(Intent(this, FavoriteActivity::class.java))
+            }
+        }
+        return true
     }
 }
