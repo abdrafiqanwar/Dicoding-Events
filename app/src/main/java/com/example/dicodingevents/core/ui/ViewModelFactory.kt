@@ -32,6 +32,9 @@ class ViewModelFactory private constructor(private val eventRepository: EventRep
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(eventRepository) as T
             }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(eventRepository) as T
+            }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
 }
