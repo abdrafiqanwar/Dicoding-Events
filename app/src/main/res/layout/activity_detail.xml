@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".detail.DetailActivity">
 
     <RelativeLayout
+        android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -63,25 +63,39 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="Deskripsi"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
-    
-    <ImageView
-        android:id="@+id/iv_media_cover"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        tools:src="@tools:sample/avatars"/>
+        android:layout_below="@id/top"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Deskripsi"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
 
-    <TextView
-        android:id="@+id/tv_desc"
-        android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/iv_media_cover"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            tools:src="@tools:sample/avatars"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:justificationMode="inter_word"
+            tools:text="@tools:sample/lorem/random"/>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:justificationMode="inter_word"
-        tools:text="@tools:sample/lorem/random"/>
-</LinearLayout>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/baseline_favorite_border_24"/>
+</RelativeLayout>
