@@ -1,5 +1,6 @@
 package com.example.dicodingevents.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +14,7 @@ import com.example.dicodingevents.core.data.Resource
 import com.example.dicodingevents.core.ui.EventAdapter
 import com.example.dicodingevents.core.ui.ViewModelFactory
 import com.example.dicodingevents.databinding.ActivityMainBinding
+import com.example.dicodingevents.detail.DetailActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +35,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         val adapter = EventAdapter()
+        adapter.onItemClick = { selectedData ->
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_DATA, selectedData)
+            startActivity(intent)
+        }
+
         binding.rvEvent.layoutManager = LinearLayoutManager(this)
         binding.rvEvent.adapter = adapter
 

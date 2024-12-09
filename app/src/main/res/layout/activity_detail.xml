@@ -1,101 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".detail.DetailActivity">
 
-    <RelativeLayout
-        android:id="@+id/top"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_imageLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_centerVertical="true"
-            tools:src="@tools:sample/avatars"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_toRightOf="@id/iv_imageLogo"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/iv_imageLogo"
-                android:layout_marginTop="12dp"
-                android:padding="4dp"
-                android:background="@drawable/category_background"
-                android:textSize="12sp"
-                tools:text="Category"/>
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_category"
-                app:layout_constraintBottom_toTopOf="@id/tv_ownerName"
-                android:layout_marginVertical="12dp"
-                android:textSize="20sp"
-                tools:text="@tools:sample/lorem"/>
-
-            <TextView
-                android:id="@+id/tv_ownerName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="12dp"
-                android:textSize="12sp"
-                tools:text="Diselenggarakan oleh: Dicoding Indonesia"/>
-        </LinearLayout>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/top"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Deskripsi"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-
-        <ImageView
             android:id="@+id/iv_media_cover"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars"/>
 
         <TextView
             android:id="@+id/tv_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_media_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="8dp"
             android:justificationMode="inter_word"
             tools:text="@tools:sample/lorem/random"/>
-    </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:src="@drawable/baseline_favorite_border_24"/>
-</RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="20dp"
+            android:src="@drawable/baseline_favorite_border_24"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
