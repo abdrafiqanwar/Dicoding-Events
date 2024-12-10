@@ -1,11 +1,12 @@
 package com.example.dicodingevents.core.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.example.dicodingevents.core.data.source.remote.network.ApiResponse
 import com.example.dicodingevents.core.data.source.local.LocalDataSource
-import com.example.dicodingevents.core.data.source.local.entity.EventEntity
 import com.example.dicodingevents.core.data.source.remote.RemoteDataSource
 import com.example.dicodingevents.core.data.source.remote.response.EventResponse
+import com.example.dicodingevents.core.domain.model.Event
 import com.example.dicodingevents.core.utils.AppExecutors
 import com.example.dicodingevents.core.utils.DataMapper
 
@@ -29,13 +30,15 @@ class EventRepository private constructor(
             }
     }
 
-    fun getAllEvent(): LiveData<Resource<List<EventEntity>>> =
-        object : NetworkBoundResource<List<EventEntity>, List<EventResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<EventEntity>> {
-                return localDataSource.getAllEvent()
+    fun getAllEvent(): LiveData<Resource<List<Event>>> =
+        object : NetworkBoundResource<List<Event>, List<EventResponse>>(appExecutors) {
+            override fun loadFromDB(): LiveData<List<Event>> {
+                return localDataSource.getAllEvent().map {
+                    DataMapper.mapEntitiesToDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<EventEntity>?): Boolean =
+            override fun shouldFetch(data: List<Event>?): Boolean =
                 data.isNullOrEmpty()
 
             override fun createCall(): LiveData<ApiResponse<List<EventResponse>>> =
@@ -47,12 +50,15 @@ class EventRepository private constructor(
             }
         }.asLiveData()
 
-    fun getFavoriteEvent(): LiveData<List<EventEntity>> {
-        return localDataSource.getFavoriteEvent()
+    fun getFavoriteEvent(): LiveData<List<Event>> {
+        return localDataSource.getFavoriteEvent().map {
+            DataMapper.mapEntitiesToDomain(it)
+        }
     }
 
-    fun setFavoriteTourism(event: EventEntity, state: Boolean) {
-        appExecutors.diskIO().execute { localDataSource.setFavoriteEvent(event, state) }
+    fun setFavoriteTourism(event: Event, state: Boolean) {
+        val eventEntity = DataMapper.mapDomainToEntity(event)
+        appExecutors.diskIO().execute { localDataSource.setFavoriteEvent(eventEntity, state) }
     }
 }
 
