@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.dicodingevents.core.data.EventRepository
 import com.example.dicodingevents.core.di.Injection
+import com.example.dicodingevents.core.domain.usecase.EventUseCase
 import com.example.dicodingevents.detail.DetailViewModel
 import com.example.dicodingevents.favorite.FavoriteViewModel
 import com.example.dicodingevents.home.MainViewModel
 
-class ViewModelFactory private constructor(private val eventRepository: EventRepository) :
+class ViewModelFactory private constructor(private val eventUseCase: EventUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -21,7 +22,7 @@ class ViewModelFactory private constructor(private val eventRepository: EventRep
                 ?: synchronized(this) {
                 instance
                     ?: ViewModelFactory(
-                        Injection.provideRepository(
+                        Injection.provideEventUseCase(
                             context
                         )
                     )
@@ -32,13 +33,13 @@ class ViewModelFactory private constructor(private val eventRepository: EventRep
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         when {
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
-                MainViewModel(eventRepository) as T
+                MainViewModel(eventUseCase) as T
             }
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
-                DetailViewModel(eventRepository) as T
+                DetailViewModel(eventUseCase) as T
             }
             modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
-                FavoriteViewModel(eventRepository) as T
+                FavoriteViewModel(eventUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
