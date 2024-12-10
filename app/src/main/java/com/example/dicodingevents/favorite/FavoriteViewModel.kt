@@ -1,9 +1,9 @@
 package com.example.dicodingevents.favorite
 
 import androidx.lifecycle.ViewModel
-import com.example.dicodingevents.core.data.EventRepository
+import com.example.dicodingevents.core.domain.usecase.EventUseCase
 
-class FavoriteViewModel(eventRepository: EventRepository) : ViewModel() {
+class FavoriteViewModel(eventUseCase: EventUseCase) : ViewModel() {
 
-    val favoriteEvent = eventRepository.getFavoriteEvent()
+    val favoriteEvent = eventUseCase.getFavoriteEvent()
 }

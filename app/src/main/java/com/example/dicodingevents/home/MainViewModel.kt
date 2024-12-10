@@ -1,9 +1,9 @@
 package com.example.dicodingevents.home
 
 import androidx.lifecycle.ViewModel
-import com.example.dicodingevents.core.data.EventRepository
+import com.example.dicodingevents.core.domain.usecase.EventUseCase
 
-class MainViewModel(eventRepository: EventRepository) : ViewModel() {
+class MainViewModel(eventUseCase: EventUseCase) : ViewModel() {
 
-    val event = eventRepository.getAllEvent()
+    val event = eventUseCase.getAllEvent()
 }
