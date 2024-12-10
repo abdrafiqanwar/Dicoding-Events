@@ -7,6 +7,7 @@ import com.example.dicodingevents.core.data.source.local.LocalDataSource
 import com.example.dicodingevents.core.data.source.remote.RemoteDataSource
 import com.example.dicodingevents.core.data.source.remote.response.EventResponse
 import com.example.dicodingevents.core.domain.model.Event
+import com.example.dicodingevents.core.domain.repository.IEventRepository
 import com.example.dicodingevents.core.utils.AppExecutors
 import com.example.dicodingevents.core.utils.DataMapper
 
@@ -14,7 +15,7 @@ class EventRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-) {
+) : IEventRepository {
 
     companion object {
         @Volatile
@@ -30,7 +31,7 @@ class EventRepository private constructor(
             }
     }
 
-    fun getAllEvent(): LiveData<Resource<List<Event>>> =
+    override fun getAllEvent(): LiveData<Resource<List<Event>>> =
         object : NetworkBoundResource<List<Event>, List<EventResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<Event>> {
                 return localDataSource.getAllEvent().map {
@@ -50,13 +51,13 @@ class EventRepository private constructor(
             }
         }.asLiveData()
 
-    fun getFavoriteEvent(): LiveData<List<Event>> {
+    override fun getFavoriteEvent(): LiveData<List<Event>> {
         return localDataSource.getFavoriteEvent().map {
             DataMapper.mapEntitiesToDomain(it)
         }
     }
 
-    fun setFavoriteTourism(event: Event, state: Boolean) {
+    override fun setFavoriteEvent(event: Event, state: Boolean) {
         val eventEntity = DataMapper.mapDomainToEntity(event)
         appExecutors.diskIO().execute { localDataSource.setFavoriteEvent(eventEntity, state) }
     }
