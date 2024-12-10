@@ -75,5 +75,10 @@ dependencies {
 
     // room
     implementation(libs.room.runtime)
+    implementation(libs.androidx.room.ktx)
     ksp(libs.room.compiler)
+
+    // coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 }
