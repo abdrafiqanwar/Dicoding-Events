@@ -10,6 +10,8 @@ import com.example.dicodingevents.core.domain.model.Event
 import com.example.dicodingevents.core.domain.repository.IEventRepository
 import com.example.dicodingevents.core.utils.AppExecutors
 import com.example.dicodingevents.core.utils.DataMapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class EventRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -31,9 +33,9 @@ class EventRepository private constructor(
             }
     }
 
-    override fun getAllEvent(): LiveData<Resource<List<Event>>> =
-        object : NetworkBoundResource<List<Event>, List<EventResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<Event>> {
+    override fun getAllEvent(): Flow<Resource<List<Event>>> =
+        object : NetworkBoundResource<List<Event>, List<EventResponse>>() {
+            override fun loadFromDB(): Flow<List<Event>> {
                 return localDataSource.getAllEvent().map {
                     DataMapper.mapEntitiesToDomain(it)
                 }
@@ -42,16 +44,16 @@ class EventRepository private constructor(
             override fun shouldFetch(data: List<Event>?): Boolean =
                 data.isNullOrEmpty()
 
-            override fun createCall(): LiveData<ApiResponse<List<EventResponse>>> =
+            override suspend fun createCall(): Flow<ApiResponse<List<EventResponse>>> =
                 remoteDataSource.getAllEvent()
 
-            override fun saveCallResult(data: List<EventResponse>) {
+            override suspend fun saveCallResult(data: List<EventResponse>) {
                 val eventList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertEvent(eventList)
             }
-        }.asLiveData()
+        }.asFlow()
 
-    override fun getFavoriteEvent(): LiveData<List<Event>> {
+    override fun getFavoriteEvent(): Flow<List<Event>> {
         return localDataSource.getFavoriteEvent().map {
             DataMapper.mapEntitiesToDomain(it)
         }

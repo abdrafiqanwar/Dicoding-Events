@@ -1,14 +1,14 @@
 package com.example.dicodingevents.core.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.example.dicodingevents.core.data.Resource
 import com.example.dicodingevents.core.domain.model.Event
+import kotlinx.coroutines.flow.Flow
 
 interface IEventRepository {
 
-    fun getAllEvent(): LiveData<Resource<List<Event>>>
+    fun getAllEvent(): Flow<Resource<List<Event>>>
 
-    fun getFavoriteEvent(): LiveData<List<Event>>
+    fun getFavoriteEvent(): Flow<List<Event>>
 
     fun setFavoriteEvent(event: Event, state: Boolean)
 }
