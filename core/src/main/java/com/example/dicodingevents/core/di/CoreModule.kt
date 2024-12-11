@@ -1,7 +1,7 @@
 package com.example.dicodingevents.core.di
 
 import androidx.room.Room
-import com.example.dicodingevents.BuildConfig
+import com.example.dicodingevents.core.BuildConfig
 import com.example.dicodingevents.core.data.EventRepository
 import com.example.dicodingevents.core.data.source.local.LocalDataSource
 import com.example.dicodingevents.core.data.source.local.room.EventDatabase

@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "DicodingEvents"
 include(":app")
+include(":core")

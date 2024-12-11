@@ -10,6 +10,6 @@ class EventInteractor(private val eventRepository: IEventRepository): EventUseCa
 
     override fun getFavoriteEvent() = eventRepository.getFavoriteEvent()
 
-    override fun setFavoriteEvent(event: Event, state: Boolean) = eventRepository.setFavoriteEvent(event, state)
+    override fun setFavoriteEvent(event: com.example.dicodingevents.core.domain.model.Event, state: Boolean) = eventRepository.setFavoriteEvent(event, state)
 
 }

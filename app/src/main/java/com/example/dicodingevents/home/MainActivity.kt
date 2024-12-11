@@ -49,12 +49,12 @@ class MainActivity : AppCompatActivity() {
         viewModel.event.observe(this) { event ->
             if (event != null) {
                 when (event) {
-                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-                    is Resource.Success -> {
+                    is com.example.dicodingevents.core.data.Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is com.example.dicodingevents.core.data.Resource.Success -> {
                         binding.progressBar.visibility = View.GONE
                         adapter.submitList(event.data)
                     }
-                    is Resource.Error -> {
+                    is com.example.dicodingevents.core.data.Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
                         binding.viewError.root.visibility = View.VISIBLE
                         binding.viewError.tvError.text = event.message ?: getString(R.string.something_wrong)

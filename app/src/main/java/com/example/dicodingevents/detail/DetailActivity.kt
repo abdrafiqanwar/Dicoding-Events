@@ -23,11 +23,11 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Detail Event"
 
-        val detailEvent = getParcelableExtra(intent, EXTRA_DATA, Event::class.java)
+        val detailEvent = getParcelableExtra(intent, EXTRA_DATA, com.example.dicodingevents.core.domain.model.Event::class.java)
         showDetailEvent(detailEvent)
     }
 
-    private fun showDetailEvent(detailEvent: Event?) {
+    private fun showDetailEvent(detailEvent: com.example.dicodingevents.core.domain.model.Event?) {
         detailEvent?.let {
             Glide.with(this)
                 .load(detailEvent.mediaCover)

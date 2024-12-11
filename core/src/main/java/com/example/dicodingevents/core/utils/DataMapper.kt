@@ -29,9 +29,9 @@ object DataMapper {
         return eventList
     }
 
-    fun mapEntitiesToDomain(input: List<EventEntity>): List<Event> =
+    fun mapEntitiesToDomain(input: List<EventEntity>): List<com.example.dicodingevents.core.domain.model.Event> =
         input.map {
-            Event(
+            com.example.dicodingevents.core.domain.model.Event(
                 id = it.id,
                 summary = it.summary,
                 mediaCover = it.mediaCover,
@@ -50,7 +50,7 @@ object DataMapper {
             )
         }
 
-    fun mapDomainToEntity(input: Event) = EventEntity(
+    fun mapDomainToEntity(input: com.example.dicodingevents.core.domain.model.Event) = EventEntity(
         id = input.id,
         summary = input.summary,
         mediaCover = input.mediaCover,
