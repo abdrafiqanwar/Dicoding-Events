@@ -2,28 +2,26 @@ package com.example.dicodingevents.detail
 
 import android.os.Bundle
 import android.text.Html
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.IntentCompat.getParcelableExtra
 import com.bumptech.glide.Glide
 import com.example.dicodingevents.R
-import com.example.dicodingevents.core.data.source.local.entity.EventEntity
 import com.example.dicodingevents.core.domain.model.Event
-import com.example.dicodingevents.core.ui.ViewModelFactory
 import com.example.dicodingevents.databinding.ActivityDetailBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private val viewModel by viewModels<DetailViewModel> {
-        ViewModelFactory.getInstance(this)
-    }
+    private val viewModel: DetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.title = "Detail Event"
 
         val detailEvent = getParcelableExtra(intent, EXTRA_DATA, Event::class.java)
         showDetailEvent(detailEvent)

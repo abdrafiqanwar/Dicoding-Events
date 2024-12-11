@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -14,17 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dicodingevents.R
 import com.example.dicodingevents.core.data.Resource
 import com.example.dicodingevents.core.ui.EventAdapter
-import com.example.dicodingevents.core.ui.ViewModelFactory
 import com.example.dicodingevents.databinding.ActivityMainBinding
 import com.example.dicodingevents.detail.DetailActivity
 import com.example.dicodingevents.favorite.FavoriteActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel by viewModels<MainViewModel> {
-        ViewModelFactory.getInstance(this)
-    }
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +33,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        supportActionBar?.title = "Dicoding Events"
 
         val adapter = EventAdapter()
         adapter.onItemClick = { selectedData ->

@@ -4,23 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dicodingevents.R
 import com.example.dicodingevents.core.ui.EventAdapter
-import com.example.dicodingevents.core.ui.ViewModelFactory
 import com.example.dicodingevents.databinding.ActivityFavoriteBinding
 import com.example.dicodingevents.detail.DetailActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoriteBinding
-    private val viewModel by viewModels<FavoriteViewModel> {
-        ViewModelFactory.getInstance(this)
-    }
+    private val viewModel: FavoriteViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +29,8 @@ class FavoriteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        supportActionBar?.title = "Favorite Events"
 
         val adapter = EventAdapter()
         adapter.onItemClick = { selectedData ->
