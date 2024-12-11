@@ -1,7 +1,5 @@
 package com.example.dicodingevents.core.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.example.dicodingevents.core.data.source.remote.network.ApiResponse
 import com.example.dicodingevents.core.data.source.local.LocalDataSource
 import com.example.dicodingevents.core.data.source.remote.RemoteDataSource
@@ -13,25 +11,11 @@ import com.example.dicodingevents.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class EventRepository private constructor(
+class EventRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : IEventRepository {
-
-    companion object {
-        @Volatile
-        private var instance: EventRepository? = null
-
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors
-        ): EventRepository =
-            instance ?: synchronized(this) {
-                instance ?: EventRepository(remoteData, localData, appExecutors)
-            }
-    }
 
     override fun getAllEvent(): Flow<Resource<List<Event>>> =
         object : NetworkBoundResource<List<Event>, List<EventResponse>>() {
