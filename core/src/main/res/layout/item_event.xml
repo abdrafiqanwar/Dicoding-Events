@@ -30,7 +30,6 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="12dp"
             android:padding="4dp"
-            android:background="@drawable/category_background"
             android:textSize="12sp"
             tools:text="Category"/>
 
