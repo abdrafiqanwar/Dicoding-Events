@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface IEventRepository {
 
-    fun getAllEvent(): Flow<com.example.dicodingevents.core.data.Resource<List<com.example.dicodingevents.core.domain.model.Event>>>
+    fun getAllEvent(): Flow<Resource<List<Event>>>
 
-    fun getFavoriteEvent(): Flow<List<com.example.dicodingevents.core.domain.model.Event>>
+    fun getFavoriteEvent(): Flow<List<Event>>
 
-    fun setFavoriteEvent(event: com.example.dicodingevents.core.domain.model.Event, state: Boolean)
+    fun setFavoriteEvent(event: Event, state: Boolean)
 }

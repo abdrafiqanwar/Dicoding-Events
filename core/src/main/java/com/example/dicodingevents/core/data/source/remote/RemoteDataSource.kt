@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flowOn
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    suspend fun getAllEvent(): Flow<ApiResponse<List<EventResponse>>> {
+    fun getAllEvent(): Flow<ApiResponse<List<EventResponse>>> {
         //get data from remote api
         return flow {
             try {

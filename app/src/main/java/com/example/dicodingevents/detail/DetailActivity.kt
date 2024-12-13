@@ -23,11 +23,11 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Detail Event"
 
-        val detailEvent = getParcelableExtra(intent, EXTRA_DATA, com.example.dicodingevents.core.domain.model.Event::class.java)
+        val detailEvent = getParcelableExtra(intent, EXTRA_DATA, Event::class.java)
         showDetailEvent(detailEvent)
     }
 
-    private fun showDetailEvent(detailEvent: com.example.dicodingevents.core.domain.model.Event?) {
+    private fun showDetailEvent(detailEvent: Event?) {
         detailEvent?.let {
             Glide.with(this)
                 .load(detailEvent.mediaCover)
@@ -45,11 +45,11 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite) {
-            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24))
-        } else {
-            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_border_24))
-        }
+        binding.fab.setImageDrawable(ContextCompat.getDrawable(
+            this,
+            if (statusFavorite) R.drawable.baseline_favorite_24
+            else R.drawable.baseline_favorite_border_24
+        ))
     }
 
     companion object {

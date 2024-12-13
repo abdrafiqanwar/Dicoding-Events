@@ -15,7 +15,6 @@ import com.example.dicodingevents.R
 import com.example.dicodingevents.core.ui.EventAdapter
 import com.example.dicodingevents.databinding.ActivityMainBinding
 import com.example.dicodingevents.detail.DetailActivity
-import com.google.android.material.navigation.NavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -78,14 +77,4 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
-
-//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.favorite -> {
-//                val uri = Uri.parse("eventapp://event")
-//                startActivity(Intent(Intent.ACTION_VIEW, uri))
-//            }
-//        }
-//        return true
-//    }
 }

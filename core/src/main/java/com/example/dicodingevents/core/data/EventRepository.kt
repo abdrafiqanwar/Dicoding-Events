@@ -17,34 +17,34 @@ class EventRepository(
     private val appExecutors: AppExecutors
 ) : IEventRepository {
 
-    override fun getAllEvent(): Flow<com.example.dicodingevents.core.data.Resource<List<com.example.dicodingevents.core.domain.model.Event>>> =
-        object : NetworkBoundResource<List<com.example.dicodingevents.core.domain.model.Event>, List<EventResponse>>() {
-            override fun loadFromDB(): Flow<List<com.example.dicodingevents.core.domain.model.Event>> {
+    override fun getAllEvent(): Flow<Resource<List<Event>>> =
+        object : NetworkBoundResource<List<Event>, List<EventResponse>>() {
+            override fun loadFromDB(): Flow<List<Event>> {
                 return localDataSource.getAllEvent().map {
-                    com.example.dicodingevents.core.utils.DataMapper.mapEntitiesToDomain(it)
+                    DataMapper.mapEntitiesToDomain(it)
                 }
             }
 
-            override fun shouldFetch(data: List<com.example.dicodingevents.core.domain.model.Event>?): Boolean =
+            override fun shouldFetch(data: List<Event>?): Boolean =
                 data.isNullOrEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<EventResponse>>> =
                 remoteDataSource.getAllEvent()
 
             override suspend fun saveCallResult(data: List<EventResponse>) {
-                val eventList = com.example.dicodingevents.core.utils.DataMapper.mapResponsesToEntities(data)
+                val eventList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertEvent(eventList)
             }
         }.asFlow()
 
-    override fun getFavoriteEvent(): Flow<List<com.example.dicodingevents.core.domain.model.Event>> {
+    override fun getFavoriteEvent(): Flow<List<Event>> {
         return localDataSource.getFavoriteEvent().map {
-            com.example.dicodingevents.core.utils.DataMapper.mapEntitiesToDomain(it)
+            DataMapper.mapEntitiesToDomain(it)
         }
     }
 
-    override fun setFavoriteEvent(event: com.example.dicodingevents.core.domain.model.Event, state: Boolean) {
-        val eventEntity = com.example.dicodingevents.core.utils.DataMapper.mapDomainToEntity(event)
+    override fun setFavoriteEvent(event: Event, state: Boolean) {
+        val eventEntity = DataMapper.mapDomainToEntity(event)
         appExecutors.diskIO().execute { localDataSource.setFavoriteEvent(eventEntity, state) }
     }
 }
