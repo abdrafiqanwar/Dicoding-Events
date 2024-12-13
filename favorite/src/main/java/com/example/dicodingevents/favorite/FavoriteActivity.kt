@@ -13,6 +13,7 @@ import com.example.dicodingevents.core.ui.EventAdapter
 import com.example.dicodingevents.databinding.ActivityFavoriteBinding
 import com.example.dicodingevents.detail.DetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 
 class FavoriteActivity : AppCompatActivity() {
 
@@ -31,6 +32,8 @@ class FavoriteActivity : AppCompatActivity() {
         }
 
         supportActionBar?.title = "Favorite Events"
+
+        loadKoinModules(favoriteModule)
 
         val adapter = EventAdapter()
         adapter.onItemClick = { selectedData ->

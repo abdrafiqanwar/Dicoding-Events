@@ -1,6 +1,7 @@
 package com.example.dicodingevents.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,11 +12,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dicodingevents.R
-import com.example.dicodingevents.core.data.Resource
 import com.example.dicodingevents.core.ui.EventAdapter
 import com.example.dicodingevents.databinding.ActivityMainBinding
 import com.example.dicodingevents.detail.DetailActivity
-import com.example.dicodingevents.favorite.FavoriteActivity
+import com.google.android.material.navigation.NavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -72,9 +72,20 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.favorite -> {
-                startActivity(Intent(this, FavoriteActivity::class.java))
+                val uri = Uri.parse("eventapp://event")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
         }
         return true
     }
+
+//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.favorite -> {
+//                val uri = Uri.parse("eventapp://event")
+//                startActivity(Intent(Intent.ACTION_VIEW, uri))
+//            }
+//        }
+//        return true
+//    }
 }
