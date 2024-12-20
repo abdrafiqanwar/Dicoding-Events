@@ -55,3 +55,18 @@
 }
 
 -keep class com.google.gson.** { *; }
+
+# Menjaga model Event
+-keep class com.example.dicodingevents.core.domain.model.Event {
+    *;
+}
+
+# Menjaga repository IEventRepository
+-keep interface com.example.dicodingevents.core.domain.repository.IEventRepository {
+    *;
+}
+
+# Opsional: Menjaga seluruh paket core.domain
+-keep class com.example.dicodingevents.core.domain.** {
+    *;
+}
