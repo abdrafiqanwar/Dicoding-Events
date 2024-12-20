@@ -9,6 +9,8 @@ import com.example.dicodingevents.core.data.source.remote.RemoteDataSource
 import com.example.dicodingevents.core.data.source.remote.network.ApiService
 import com.example.dicodingevents.core.domain.repository.IEventRepository
 import com.example.dicodingevents.core.utils.AppExecutors
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -20,10 +22,14 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<EventDatabase>().eventDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("example".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             EventDatabase::class.java, "Event.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
