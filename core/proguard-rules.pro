@@ -19,3 +19,39 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-dontwarn java.lang.invoke.StringConcatFactory
+
+-keep class com.example.dicodingevents.core.data.source.local.** { *; }
+-keepclassmembers class com.example.dicodingevents.core.data.source.local.** { *; }
+
+-keep class com.example.dicodingevents.core.data.source.remote.response.** { *; }
+-keepclassmembers class com.example.dicodingevents.core.data.source.remote.response.** { *; }
+
+-keep class com.example.dicodingevents.core.di.** { *; }
+-keepclassmembers class com.example.dicodingevents.core.di.** { *; }
+
+-keep class com.example.dicodingevents.core.domain.usecase.** { *; }
+-keepclassmembers class com.example.dicodingevents.core.domain.usecase.** { *; }
+
+-keep class com.example.dicodingevents.core.ui.** { *; }
+-keepclassmembers class com.example.dicodingevents.core.ui.** { *; }
+
+-keep class com.example.dicodingevents.core.data.Resource$* { *; }
+
+-keepattributes Signature
+
+-keepclassmembers class com.example.dicodingevents.core.data.Resource$* {
+    <init>(...);
+    java.lang.Object getData();
+}
+
+-keepclassmembers class ** {
+    *** get*(...);
+    *** set*(...);
+}
+
+-keepclassmembers class ** {
+    public <init>(...);
+}
+
+-keep class com.google.gson.** { *; }
